@@ -7,6 +7,29 @@ statically, and the site supports Traditional Chinese (default) and English,
 light/dark mode with a cyan-based color theme, giscus-powered comments, tag
 browsing, a per-article table of contents, and RSS.
 
+## Relationship to www.parkerchang.life
+
+This blog is deployed at `dev.parkerchang.life`, a subdomain of the author's
+existing personal blog (`www.parkerchang.life`), which covers life/hobby
+content in a minimal, warm, light-mode, emoji-labeled style with a top nav
+and card-based post lists.
+
+This dev blog echoes that family resemblance (minimal card-based layout,
+emoji-prefixed nav categories, language switcher, RSS icon) while
+differentiating itself:
+
+- **Cyan accent color** instead of the neutral grays of the life blog,
+  used prominently on links, buttons, and tag badges.
+- **Pixel/retro touches**: a pixel font (e.g. "Press Start 2P" or similar)
+  for the site logo/title and large headings only — body text stays a
+  readable sans-serif. Tag badges, card borders, and the dark-mode toggle
+  icon may use pixelated/8-bit-style treatment.
+- **Dark mode as the primary visual identity** (vs. the life blog's light
+  default) — defaults to `prefers-color-scheme` but the overall look leans
+  into a terminal/retro-computing feel.
+- **Footer cross-links** to `www.parkerchang.life` and GitHub, signaling
+  "same author, second blog."
+
 ## Stack
 
 - **Framework**: Astro (Content Collections for Markdown, static output)
@@ -17,7 +40,8 @@ browsing, a per-article table of contents, and RSS.
   `Parkerhiphop/dev-blog` (requires: enable Discussions on the repo, install
   the giscus GitHub App, and fill in repo-id/category-id from giscus.app once
   the repo exists remotely)
-- **Deployment**: Cloudflare Pages, static `astro build` output
+- **Deployment**: Cloudflare Pages, static `astro build` output, custom
+  domain `dev.parkerchang.life`
 - **RSS**: `@astrojs/rss`, one feed per language
 
 ## Content structure
@@ -57,8 +81,12 @@ Frontmatter per post: `title`, `description`, `pubDate`, `updatedDate?`,
 ## Theming
 
 - Cyan-based accent color, CSS variables drive both light and dark palettes.
+- Pixel font for site title/large headings; sans-serif for body text and UI
+  chrome, matching the life blog's readability.
 - Dark mode preference stored in `localStorage`; defaults to
   `prefers-color-scheme` on first visit.
+- Nav uses emoji-prefixed categories/labels, echoing www.parkerchang.life.
+- Footer links to `www.parkerchang.life` and GitHub.
 
 ## RSS
 
