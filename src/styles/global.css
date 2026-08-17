@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f1f5f9;
+  --color-text: #0f172a;
+  --color-border: #cbd5e1;
+}
+
+.dark {
+  --color-bg: #0a0f14;
+  --color-surface: #111c22;
+  --color-text: #e2f6f6;
+  --color-border: #1f3a3f;
+}
+
+html,
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+::selection {
+  background-color: theme('colors.accent.DEFAULT');
+  color: #ffffff;
+}
