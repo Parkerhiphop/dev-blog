@@ -92,9 +92,3 @@ Frontmatter per post: `title`, `description`, `pubDate`, `updatedDate?`,
 
 - `/rss.xml` — Chinese posts
 - `/en/rss.xml` — English posts
-
-## Out of scope
-
-- Full-text search
-- Multi-author support
-- CMS/admin UI — content is authored directly as Markdown files in the repo
