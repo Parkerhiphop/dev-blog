@@ -1,0 +1,15 @@
+---
+import PostCard from './PostCard.astro';
+import { getPostsByLang } from '../lib/posts';
+
+interface Props {
+  lang: 'zh' | 'en';
+}
+const { lang } = Astro.props;
+const posts = await getPostsByLang(lang);
+const emptyText = lang === 'en' ? 'No posts yet.' : '目前還沒有文章。';
+---
+<div class="flex flex-col gap-4">
+  {posts.length === 0 && <p class="opacity-70">{emptyText}</p>}
+  {posts.map((post) => <PostCard post={post} />)}
+</div>

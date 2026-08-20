@@ -1,0 +1,27 @@
+---
+import type { Post } from '../lib/posts';
+import { postHref } from '../lib/posts';
+import { getReadingTimeMinutes, getLangFromId } from '../lib/post-utils';
+
+interface Props {
+  post: Post;
+}
+const { post } = Astro.props;
+const lang = getLangFromId(post.id);
+const minutes = getReadingTimeMinutes(post.body ?? '', lang);
+---
+<article class="rounded border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+  <a href={postHref(post)} class="text-lg font-semibold text-accent hover:underline">
+    {post.data.title}
+  </a>
+  <p class="mt-1 text-sm opacity-80">{post.data.description}</p>
+  <div class="mt-2 flex flex-wrap items-center gap-2 text-xs opacity-70">
+    <time datetime={post.data.pubDate.toISOString()}>
+      {post.data.pubDate.toISOString().slice(0, 10)}
+    </time>
+    <span>· {minutes} min</span>
+    {post.data.tags.map((tag) => (
+      <span class="rounded border border-accent px-1.5 py-0.5 text-accent">#{tag}</span>
+    ))}
+  </div>
+</article>
