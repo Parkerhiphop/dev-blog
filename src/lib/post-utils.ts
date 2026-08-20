@@ -5,7 +5,11 @@ export function getLangFromId(id: string): Lang {
 }
 
 export function getSlugFromId(id: string): string {
-  return id.split('/').slice(1).join('/');
+  return id
+    .split('/')
+    .slice(1)
+    .join('/')
+    .replace(/\.[^/.]+$/, '');
 }
 
 export function getReadingTimeMinutes(body: string, lang: Lang): number {

@@ -25,6 +25,10 @@ describe('getSlugFromId', () => {
   it('preserves nested slugs', () => {
     expect(getSlugFromId('en/2026/hello-world')).toBe('2026/hello-world');
   });
+
+  it('strips a file extension, matching Astro content-collection entry ids', () => {
+    expect(getSlugFromId('zh/hello-world.md')).toBe('hello-world');
+  });
 });
 
 describe('getReadingTimeMinutes', () => {
