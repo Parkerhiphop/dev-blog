@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '../components/TableOfContents.astro';
+import Giscus from '../components/Giscus.astro';
 import { getReadingTimeMinutes, getLangFromId } from '../lib/post-utils';
 import type { Post } from '../lib/posts';
 
@@ -33,4 +34,5 @@ const switchLabel = lang === 'en' ? '中文版' : 'English version';
     </article>
     <TableOfContents headings={headings} />
   </div>
+  <Giscus />
 </BaseLayout>
