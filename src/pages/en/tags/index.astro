@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TagBadge from '../../../components/TagBadge.astro';
+import { getAllTags } from '../../../lib/posts';
+
+const tags = await getAllTags('en');
+---
+<BaseLayout title="Tags" description="All post tags" lang="en">
+  <div class="flex flex-wrap gap-2">
+    {tags.map((tag) => <TagBadge tag={tag} href={`/en/tags/${tag}/`} />)}
+  </div>
+</BaseLayout>

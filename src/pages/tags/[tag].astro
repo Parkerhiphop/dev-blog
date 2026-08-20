@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getAllTags, getPostsByTag } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const tags = await getAllTags('zh');
+  return tags.map((tag) => ({ params: { tag } }));
+}
+
+const { tag } = Astro.params;
+const posts = await getPostsByTag('zh', tag as string);
+---
+<BaseLayout title={`#${tag}`} description={`標籤：${tag}`} lang="zh">
+  <h1 class="mb-4 font-pixel text-lg text-accent">#{tag}</h1>
+  <div class="flex flex-col gap-4">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+</BaseLayout>
