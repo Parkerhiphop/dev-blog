@@ -1,0 +1,27 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+interface Props {
+  headings: Heading[];
+}
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+{items.length > 0 && (
+  <nav
+    class="mb-6 rounded border border-[var(--color-border)] bg-[var(--color-surface)] p-3 text-sm lg:sticky lg:top-4"
+    aria-label="Table of contents"
+  >
+    <p class="mb-2 font-semibold text-accent">TOC</p>
+    <ul class="flex flex-col gap-1">
+      {items.map((h) => (
+        <li class={h.depth === 3 ? 'ml-3' : ''}>
+          <a href={`#${h.slug}`} class="hover:text-accent hover:underline">{h.text}</a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}

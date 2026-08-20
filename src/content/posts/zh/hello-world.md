@@ -18,3 +18,11 @@ tags: ["meta"]
 ## 訂閱
 
 歡迎透過 RSS 訂閱更新。
+
+## 範例程式碼
+
+```ts
+function greet(name: string): string {
+  return `Hello, ${name}!`;
+}
+```

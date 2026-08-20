@@ -1,0 +1,21 @@
+---
+import PostLayout from '../../../layouts/PostLayout.astro';
+import { getPostsByLang, getTranslationSlug } from '../../../lib/posts';
+import { getSlugFromId } from '../../../lib/post-utils';
+
+export async function getStaticPaths() {
+  const posts = await getPostsByLang('en');
+  return posts.map((post) => ({
+    params: { slug: getSlugFromId(post.id) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+const translationSlug = await getTranslationSlug(post);
+const translationHref = translationSlug ? `/posts/${translationSlug}/` : null;
+---
+<PostLayout post={post} headings={headings} translationHref={translationHref}>
+  <Content />
+</PostLayout>

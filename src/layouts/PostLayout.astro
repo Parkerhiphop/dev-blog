@@ -1,0 +1,36 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import { getReadingTimeMinutes, getLangFromId } from '../lib/post-utils';
+import type { Post } from '../lib/posts';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+interface Props {
+  post: Post;
+  headings: Heading[];
+  translationHref: string | null;
+}
+const { post, headings, translationHref } = Astro.props;
+const lang = getLangFromId(post.id);
+const minutes = getReadingTimeMinutes(post.body ?? '', lang);
+const switchLabel = lang === 'en' ? '中文版' : 'English version';
+---
+<BaseLayout title={post.data.title} description={post.data.description} lang={lang}>
+  <div class="grid gap-6 lg:grid-cols-[1fr_16rem]">
+    <article class="prose prose-slate max-w-none dark:prose-invert">
+      <h1 class="font-pixel text-xl leading-relaxed text-accent">{post.data.title}</h1>
+      <p class="text-sm opacity-70">
+        {post.data.pubDate.toISOString().slice(0, 10)} · {minutes} min
+      </p>
+      {translationHref && (
+        <p><a href={translationHref} class="text-accent">{switchLabel} →</a></p>
+      )}
+      <slot />
+    </article>
+    <TableOfContents headings={headings} />
+  </div>
+</BaseLayout>
