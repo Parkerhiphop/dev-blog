@@ -1,0 +1,25 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  lang: 'zh' | 'en';
+}
+const { lang } = Astro.props;
+const prefix = lang === 'en' ? '/en' : '';
+const t = lang === 'en'
+  ? { home: '🏠 Home', tags: '🏷️ Tags', about: '📍 About' }
+  : { home: '🏠 首頁', tags: '🏷️ 標籤', about: '📍 關於' };
+---
+<header class="flex items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
+  <a href={`${prefix}/`} class="font-pixel text-accent text-sm sm:text-base">
+    Parker's Dev Blog
+  </a>
+  <nav class="flex items-center gap-4 text-sm">
+    <a href={`${prefix}/`}>{t.home}</a>
+    <a href={`${prefix}/tags/`}>{t.tags}</a>
+    <a href={`${prefix}/about/`}>{t.about}</a>
+    <a href={lang === 'en' ? '/' : '/en/'}>{lang === 'en' ? '中文' : 'EN'}</a>
+    <a href={lang === 'en' ? '/en/rss.xml' : '/rss.xml'} aria-label="RSS feed">📡</a>
+    <ThemeToggle />
+  </nav>
+</header>

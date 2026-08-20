@@ -1,0 +1,31 @@
+<button
+  id="theme-toggle"
+  aria-label="Toggle dark mode"
+  class="rounded border border-[var(--color-border)] px-2 py-1 text-sm"
+>
+  <span id="theme-toggle-icon">🌙</span>
+</button>
+
+<script>
+  const STORAGE_KEY = 'theme';
+  const root = document.documentElement;
+  const icon = document.getElementById('theme-toggle-icon')!;
+
+  function applyTheme(theme: 'light' | 'dark') {
+    root.classList.toggle('dark', theme === 'dark');
+    icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+
+  function currentTheme(): 'light' | 'dark' {
+    return root.classList.contains('dark') ? 'dark' : 'light';
+  }
+
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const next = currentTheme() === 'dark' ? 'light' : 'dark';
+    localStorage.setItem(STORAGE_KEY, next);
+    applyTheme(next);
+    window.dispatchEvent(new CustomEvent('theme-change', { detail: next }));
+  });
+
+  applyTheme(currentTheme());
+</script>
