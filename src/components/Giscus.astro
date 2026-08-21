@@ -1,6 +1,6 @@
 <div id="giscus-container" class="mt-10"></div>
 
-<script define:vars={{
+<script is:inline define:vars={{
   repo: import.meta.env.PUBLIC_GISCUS_REPO,
   repoId: import.meta.env.PUBLIC_GISCUS_REPO_ID,
   category: import.meta.env.PUBLIC_GISCUS_CATEGORY,
@@ -23,8 +23,8 @@
   container?.appendChild(script);
 
   window.addEventListener('theme-change', (event) => {
-    const theme = (event as CustomEvent<'light' | 'dark'>).detail;
-    const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+    const theme = event.detail;
+    const iframe = document.querySelector('iframe.giscus-frame');
     iframe?.contentWindow?.postMessage(
       { giscus: { setConfig: { theme } } },
       'https://giscus.app',
