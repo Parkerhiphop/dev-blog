@@ -1,0 +1,17 @@
+<div class="mt-10">
+  <div id="utterances-container"></div>
+</div>
+
+<script is:inline>
+  const container = document.getElementById('utterances-container');
+  if (container && !container.querySelector('script')) {
+    const script = document.createElement('script');
+    script.src = 'https://utteranc.es/client.js';
+    script.setAttribute('repo', 'Parkerhiphop/dev-blog');
+    script.setAttribute('issue-term', 'pathname');
+    script.setAttribute('theme', 'github-dark');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.async = true;
+    container.appendChild(script);
+  }
+</script>

@@ -1,11 +1,13 @@
 ---
 interface Props {
-  lang: 'zh' | 'en';
+  lang: 'zh' | 'en' | 'ja';
 }
 const { lang } = Astro.props;
 const t = lang === 'en'
   ? { life: 'Life blog', github: 'GitHub' }
-  : { life: '生活部落格', github: 'GitHub' };
+  : lang === 'ja'
+    ? { life: 'ライフブログ', github: 'GitHub' }
+    : { life: '生活部落格', github: 'GitHub' };
 ---
 <footer class="border-t border-[var(--color-border)] px-4 py-6 text-xs opacity-80">
   <p>

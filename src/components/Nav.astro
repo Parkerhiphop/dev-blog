@@ -2,24 +2,86 @@
 import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
-  lang: 'zh' | 'en';
+  lang: 'zh' | 'en' | 'ja';
 }
 const { lang } = Astro.props;
-const prefix = lang === 'en' ? '/en' : '';
-const t = lang === 'en'
-  ? { home: '🏠 Home', tags: '🏷️ Tags', about: '📍 About' }
-  : { home: '🏠 首頁', tags: '🏷️ 標籤', about: '📍 關於' };
+const prefix = lang === 'zh' ? '' : `/${lang}`;
+const translations = {
+  zh: { home: '🏠 首頁', tags: '🏷️ 標籤', about: '📍 關於', feed: '複製 RSS 網址', copied: 'RSS 網址已複製', languages: '語言', menu: '開啟選單' },
+  en: { home: '🏠 Home', tags: '🏷️ Tags', about: '📍 About', feed: 'Copy RSS URL', copied: 'RSS URL copied', languages: 'Language', menu: 'Open menu' },
+  ja: { home: '🏠 ホーム', tags: '🏷️ タグ', about: '📍 このブログについて', feed: 'RSS URLをコピー', copied: 'RSS URLをコピーしました', languages: '言語', menu: 'メニューを開く' },
+} as const;
+const t = translations[lang];
+const feedUrl = `${prefix}/rss.xml`;
+const languageLinks = [
+  { label: '繁中', href: '/', active: lang === 'zh' },
+  { label: 'EN', href: '/en/', active: lang === 'en' },
+  { label: '日本語', href: '/ja/', active: lang === 'ja' },
+];
 ---
-<header class="flex items-center justify-between border-b border-[var(--color-border)] px-4 py-3">
-  <a href={`${prefix}/`} class="font-pixel text-accent text-sm sm:text-base">
-    Parker's Dev Blog
+<header class="relative flex items-center justify-between gap-3 border-b border-[var(--color-border)] px-4 py-3">
+  <a href={`${prefix}/`} class="flex min-w-0 shrink-0 items-center gap-2 text-accent" aria-label="Parker's Dev Blog">
+    <img src="/icon.png" alt="" class="h-9 w-9 shrink-0 rounded-full object-cover sm:h-8 sm:w-8" />
+    <span class="hidden truncate font-pixel text-sm sm:inline sm:text-base">Parker's Dev Blog</span>
   </a>
-  <nav class="flex items-center gap-4 text-sm">
+  <div class="flex shrink-0 items-center gap-1 sm:order-3 sm:gap-2">
+    <span class="sr-only">{t.languages}:</span>
+    {languageLinks.map((language) => (
+      <a
+        href={language.href}
+        class:list={[
+          'whitespace-nowrap rounded px-1.5 py-1 text-xs sm:px-2 sm:text-sm',
+          language.active ? 'bg-accent text-slate-950' : 'hover:text-accent',
+        ]}
+        aria-current={language.active ? 'page' : undefined}
+      >{language.label}</a>
+    ))}
+    <ThemeToggle />
+    <button
+      id="menu-toggle"
+      type="button"
+      class="rounded border border-[var(--color-border)] px-2 py-1 text-sm sm:hidden"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      aria-label={t.menu}
+    >☰</button>
+  </div>
+  <nav id="site-menu" class="absolute left-0 right-0 top-full z-10 hidden flex-col gap-4 border-b border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-4 text-sm sm:order-2 sm:static sm:flex sm:flex-row sm:items-center sm:gap-4 sm:border-0 sm:bg-transparent sm:p-0">
     <a href={`${prefix}/`}>{t.home}</a>
     <a href={`${prefix}/tags/`}>{t.tags}</a>
     <a href={`${prefix}/about/`}>{t.about}</a>
-    <a href={lang === 'en' ? '/' : '/en/'}>{lang === 'en' ? '中文' : 'EN'}</a>
-    <a href={lang === 'en' ? '/en/rss.xml' : '/rss.xml'} aria-label="RSS feed">📡</a>
-    <ThemeToggle />
+    <button
+      type="button"
+      class="rss-copy rounded border border-[var(--color-border)] p-2 text-sm"
+      data-rss-url={feedUrl}
+      data-copied-label={t.copied}
+      aria-label={t.feed}
+      title={t.feed}
+    >
+      <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="5" cy="19" r="1" fill="currentColor" stroke="none" />
+        <path d="M5 12a7 7 0 0 1 7 7" />
+        <path d="M5 5a14 14 0 0 1 14 14" />
+      </svg>
+    </button>
   </nav>
 </header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const siteMenu = document.getElementById('site-menu');
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', String(!isOpen));
+    siteMenu?.classList.toggle('hidden', isOpen);
+    siteMenu?.classList.toggle('flex', !isOpen);
+  });
+
+  siteMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      siteMenu.classList.add('hidden');
+      siteMenu.classList.remove('flex');
+    });
+  });
+</script>

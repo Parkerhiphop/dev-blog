@@ -6,7 +6,7 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
-  lang: 'zh' | 'en';
+  lang: 'zh' | 'en' | 'ja';
 }
 const { title, description, lang } = Astro.props;
 ---
@@ -30,6 +30,26 @@ const { title, description, lang } = Astro.props;
       if (stored === 'dark' || (!stored && prefersDark)) {
         document.documentElement.classList.add('dark');
       }
+    </script>
+    <script is:inline>
+      document.addEventListener('click', async (event) => {
+        const button = event.target.closest('.rss-copy');
+        if (!button) return;
+        const url = new URL(button.dataset.rssUrl, window.location.origin).href;
+        const originalLabel = button.getAttribute('aria-label');
+        const originalContent = button.innerHTML;
+        try {
+          await navigator.clipboard.writeText(url);
+          button.setAttribute('aria-label', button.dataset.copiedLabel);
+          button.textContent = '✓';
+          window.setTimeout(() => {
+            button.setAttribute('aria-label', originalLabel);
+            button.innerHTML = originalContent;
+          }, 1800);
+        } catch {
+          window.prompt('Copy RSS URL:', url);
+        }
+      });
     </script>
   </head>
   <body class="flex min-h-screen flex-col">

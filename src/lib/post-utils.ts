@@ -1,7 +1,9 @@
-export type Lang = 'zh' | 'en';
+export type Lang = 'zh' | 'en' | 'ja';
 
 export function getLangFromId(id: string): Lang {
-  return id.startsWith('en/') ? 'en' : 'zh';
+  if (id.startsWith('en/')) return 'en';
+  if (id.startsWith('ja/')) return 'ja';
+  return 'zh';
 }
 
 export function getSlugFromId(id: string): string {
@@ -13,7 +15,7 @@ export function getSlugFromId(id: string): string {
 }
 
 export function getReadingTimeMinutes(body: string, lang: Lang): number {
-  if (lang === 'zh') {
+  if (lang === 'zh' || lang === 'ja') {
     const charCount = body.replace(/\s/g, '').length;
     return Math.max(1, Math.round(charCount / 400));
   }

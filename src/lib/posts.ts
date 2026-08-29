@@ -38,5 +38,5 @@ export async function getPostsByTag(lang: Lang, tag: string): Promise<Post[]> {
 export function postHref(post: Post): string {
   const lang = getLangFromId(post.id);
   const slug = getSlugFromId(post.id);
-  return lang === 'en' ? `/en/posts/${slug}/` : `/posts/${slug}/`;
+  return lang === 'zh' ? `/posts/${slug}/` : `/${lang}/posts/${slug}/`;
 }
