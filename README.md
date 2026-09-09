@@ -1,7 +1,7 @@
 # Parker's Dev Blog
 
 Bilingual (zh/en) software development blog built with Astro, Tailwind CSS,
-and giscus comments. Deployed to Cloudflare Pages at
+and Utterances comments. Deployed to Cloudflare Pages at
 https://dev.parkerchang.life.
 
 ## Development
@@ -23,8 +23,8 @@ pubDate: 2026-01-01
 tags: ["..."]
 ```
 
-## Docs
+## Deployment
 
-- [Design spec](docs/superpowers/specs/2026-08-17-dev-blog-design.md)
-- [Giscus setup](docs/superpowers/giscus-setup.md)
-- [Deployment](docs/superpowers/deployment.md)
+Hosted on Cloudflare Pages with build command `npm run build` and output
+directory `dist`. Utterances is configured directly in
+`src/components/Utterances.astro` and requires no environment variables.
