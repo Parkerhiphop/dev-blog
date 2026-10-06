@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "npm run generate:covers && astro build",
+    "generate:covers": "node scripts/generate-covers.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "test": "vitest run"
