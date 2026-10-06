@@ -1,0 +1,57 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import DifficultyBadge from '../components/DifficultyBadge.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+import type { LeetCodeNote } from '../lib/leetcode';
+import { getReadingTimeMinutes } from '../lib/post-utils';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  note: LeetCodeNote;
+  headings: Heading[];
+}
+
+const { note, headings } = Astro.props;
+const minutes = getReadingTimeMinutes(note.body ?? '', 'en');
+const hasTableOfContents = headings.some(({ depth }) => depth === 2 || depth === 3);
+---
+<BaseLayout title={note.data.title} description={note.data.description} lang="en" wide={hasTableOfContents}>
+  <div class:list={['grid items-start gap-6', hasTableOfContents && 'lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-10']}>
+    <TableOfContents headings={headings} />
+    <article class="post-content prose prose-slate min-w-0 max-w-none dark:prose-invert lg:order-first">
+      <a href="/leetcode/" class="not-prose text-sm text-accent hover:underline">← LeetCode notes</a>
+      <h1 class="font-pixel text-xl leading-relaxed text-accent">{note.data.title}</h1>
+      <p class="not-prose text-sm opacity-70">
+        {note.data.pubDate.toISOString().slice(0, 10)} · {minutes} min
+        {note.data.difficulty && <><span> · </span><DifficultyBadge difficulty={note.data.difficulty} /></>}
+      </p>
+      <aside class="not-prose my-6 rounded border border-accent/40 bg-[var(--color-surface)] px-4 py-3 text-sm leading-relaxed" role="note">
+        LeetCode posts are written in English only.
+      </aside>
+      <slot />
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .post-content {
+    overflow-wrap: anywhere;
+  }
+
+  .post-content :global(pre) {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-wrap: normal;
+  }
+
+  .post-content :global(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+</style>

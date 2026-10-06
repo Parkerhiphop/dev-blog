@@ -13,4 +13,18 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+const leetcode = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    tags: z.array(z.string()).default([]),
+    difficulty: z.enum(['Easy', 'Medium', 'Hard']).optional(),
+    problemUrl: z.string().url().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { posts, leetcode };

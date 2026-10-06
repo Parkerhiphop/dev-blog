@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DifficultyBadge from '../../components/DifficultyBadge.astro';
+import { getLeetCodeNotes } from '../../lib/leetcode';
+
+const notes = await getLeetCodeNotes();
+---
+<BaseLayout title="LeetCode" description="LeetCode problem-solving notes and solutions, written in English." lang="en">
+  <section>
+    <h1 class="font-pixel text-xl leading-relaxed text-accent">LeetCode</h1>
+    <aside class="my-6 rounded border border-accent/40 bg-[var(--color-surface)] px-4 py-3 text-sm leading-relaxed" role="note">
+      LeetCode posts are written in English only.
+    </aside>
+    <div class="flex flex-col gap-4">
+      {notes.length === 0 && <p class="opacity-70">No notes yet.</p>}
+      {notes.map((note) => (
+        <article class="rounded border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+          <a href={`/leetcode/${note.id.replace(/\.mdx?$/, '')}/`} class="text-lg font-semibold text-accent hover:underline">{note.data.title}</a>
+          <p class="mt-1 text-sm opacity-80">{note.data.description}</p>
+          <div class="mt-2 flex flex-wrap items-center gap-2 text-xs opacity-70">
+            <time datetime={note.data.pubDate.toISOString()}>{note.data.pubDate.toISOString().slice(0, 10)}</time>
+            {note.data.difficulty && <DifficultyBadge difficulty={note.data.difficulty} />}
+            {note.data.tags.map((tag) => <span class="rounded border border-accent px-1.5 py-0.5 text-accent">#{tag}</span>)}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,15 @@
+---
+import LeetCodePostLayout from '../../layouts/LeetCodePostLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('leetcode', ({ data }) => !data.draft);
+  return notes.map((note) => ({ params: { slug: note.id.replace(/\.mdx?$/, '') }, props: { note } }));
+}
+
+const { note } = Astro.props;
+const { Content, headings } = await note.render();
+---
+<LeetCodePostLayout note={note} headings={headings}>
+  <Content />
+</LeetCodePostLayout>

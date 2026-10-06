@@ -8,8 +8,9 @@ interface Props {
   description: string;
   lang: 'zh' | 'en' | 'ja';
   wide?: boolean;
+  ogImage?: string;
 }
-const { title, description, lang, wide = false } = Astro.props;
+const { title, description, lang, wide = false, ogImage } = Astro.props;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -17,6 +18,12 @@ const { title, description, lang, wide = false } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    {ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site).href} />}
+    <meta property="og:title" content={`${title} · Parker's Dev Blog`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="article" />
+    {ogImage && <meta name="twitter:card" content="summary_large_image" />}
+    {ogImage && <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />}
     <link rel="icon" href="/icon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
