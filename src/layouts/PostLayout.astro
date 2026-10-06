@@ -2,7 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import Utterances from '../components/Utterances.astro';
-import { getReadingTimeMinutes, getLangFromId } from '../lib/post-utils';
+import { getReadingTimeMinutes, getLangFromId, getSlugFromId } from '../lib/post-utils';
 import type { Post } from '../lib/posts';
 
 interface Heading {
@@ -16,10 +16,17 @@ interface Props {
 }
 const { post, headings } = Astro.props;
 const lang = getLangFromId(post.id);
+const slug = getSlugFromId(post.id);
+const ogImage = `/covers/${lang}/${slug}.svg`;
 const minutes = getReadingTimeMinutes(post.body ?? '', lang);
 const hasTableOfContents = headings.some(({ depth }) => depth === 2 || depth === 3);
+const showAiTranslationNotice = lang !== 'zh' && post.data['review-by-me'] !== true;
+const aiTranslationNotice = {
+  en: 'This article was translated with AI and has not been manually reviewed yet. If you notice awkward phrasing or mistakes, feel free to contact me.',
+  ja: 'この記事は AI によって翻訳されており、まだ手動レビューされていません。不自然な表現や誤りに気づいた場合は、お気軽にご連絡ください。',
+};
 ---
-<BaseLayout title={post.data.title} description={post.data.description} lang={lang} wide={hasTableOfContents}>
+<BaseLayout title={post.data.title} description={post.data.description} lang={lang} wide={hasTableOfContents} ogImage={ogImage}>
   <div class:list={['grid items-start gap-6', hasTableOfContents && 'lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-10']}>
     <TableOfContents headings={headings} />
     <article class="post-content prose prose-slate min-w-0 max-w-none dark:prose-invert lg:order-first">
@@ -27,6 +34,12 @@ const hasTableOfContents = headings.some(({ depth }) => depth === 2 || depth ===
       <p class="text-sm opacity-70">
         {post.data.pubDate.toISOString().slice(0, 10)} · {minutes} min
       </p>
+      {showAiTranslationNotice && (
+        <aside class="my-6 rounded border border-accent/40 bg-[var(--color-surface)] px-4 py-3 text-sm leading-relaxed" role="note">
+          <strong class="text-accent">{lang === 'en' ? 'AI translation notice' : 'AI 翻訳に関するお知らせ'}</strong>
+          <p class="mt-1">{aiTranslationNotice[lang]}</p>
+        </aside>
+      )}
       <slot />
     </article>
   </div>
