@@ -3,7 +3,7 @@ title: 私がどのようにWordPressサイトを構築したか
 pubDate: '2025-04-13'
 draft: false
 description: AWS EC2 と Easy Engine を使用して WordPress サイトを迅速にデプロイ（ドメインは Cloudflare で購入）。多少のプログラミング知識が必要ですが、安価で高速、自由度と拡張性も高いです！
-tags: ['Software Development', 'WordPress', 'AWS', 'EC2', 'EasyEngine', 'Cloudflare']
+tags: ['WordPress', 'AWS', 'EC2', 'EasyEngine', 'Cloudflare']
 review-by-me: false
 ---
 

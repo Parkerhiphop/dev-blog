@@ -3,7 +3,7 @@ title: Design System — フロントエンドエンジニアも知っておく�
 pubDate: '2021-09-22'
 draft: false
 description: ソフトウェアエンジニアの本質は実は建築家に非常に近く、彼らが家を建てるのに対し、私たちはシステムを構築します。良い家には優れた建築設計が必要であり、設計図の計画、建物全体の構造の理解、事前の計画設計に多くの時間を費やします。この概念はウェブページにおける Design System に相当します！
-tags: ['Software Development', 'Web Development', 'Design System', 'CSS', 'UI/UX']
+tags: ['Frontend', 'Design System', 'CSS', 'UI/UX']
 review-by-me: false
 ---
 

@@ -3,7 +3,7 @@ title: Design System - Things Frontend Engineers Should Know
 pubDate: '2021-09-22'
 draft: false
 description: The nature of a software engineer is actually very close to that of an architect, except they build houses and we build systems. A good house requires good architectural design, blueprints, understanding of the structure, and a lot of time spent on planning and design. This concept corresponds to Design System in web pages!
-tags: ['Software Development', 'Web Development', 'Design System', 'CSS', 'UI/UX']
+tags: ['Frontend', 'Design System', 'CSS', 'UI/UX']
 review-by-me: false
 ---
 

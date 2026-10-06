@@ -3,6 +3,7 @@ title: 實作 Google 第三方登入（Vue / Express）
 pubDate: '2022-10-23'
 draft: false
 description: 使用 Vue 和 Express 做 Google 登入串接的小範例
+tags: ['Backend', 'Vue', 'Express', 'Google OAuth']
 ---
 
 ![](https://cdn-images-1.medium.com/max/800/0*Ewxcp0OIGr31jGoo.png)

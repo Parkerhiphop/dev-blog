@@ -2,6 +2,7 @@
 title: 從 Callback 到 Async/Await：以次序淡入動畫為例
 pubDate: '2023-08-21'
 description: 透過一個次序淡入動畫的需求來看 JS 中非同步操作的處理，如何從 Callback 結構轉換到 Promise ，再用 Async/Await 重構成更簡潔、好讀的程式碼。
+tags: ['Frontend', 'JavaScript', 'Async/Await']
 ---
 
 ## Foreword

@@ -3,6 +3,7 @@ title: 談談 JavaScript 中的 eval、風險及替代方案
 pubDate: '2023-09-30'
 draft: false
 description: 介紹 JavaScript 中的 eval，再談談為什麼不要用它，最後以 App script 爬蟲時需要讀取`<script />` 和 取得 JS 運算結果的面試考題來看它的應用，以及它的替代方案。
+tags: ['JavaScript', 'Security', 'Eval']
 ---
 
 ## 前言

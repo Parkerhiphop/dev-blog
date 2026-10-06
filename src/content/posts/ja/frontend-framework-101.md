@@ -3,7 +3,7 @@ title: フロントエンドフレームワーク第0課：フレームワーク
 pubDate: '2021-07-11'
 draft: false
 description: フロントエンドフレームワークの選択は、多くの初心者（私を含む）にとって常に大きな疑問でした。私は当初、会社がReactを使用していたため、Reactを書くしかありませんでした。最近、縁あってAngularに触れる機会があり、それがきっかけで「フロントエンドフレームワーク」について、「フレームワーク」とは一体何を指すのか？何が「フレームワーク」と呼ばれるのか？なぜフロントエンドでそれを使用する必要があるのか？使用しないとどうなるのか？Vue3がすごいと聞いたが、学ぶべきか？などの問題について、より深く考えるようになりました。
-tags: ['Software Development', 'Web Development', 'Frontend', 'Framework', 'JavaScript']
+tags: ['Frontend', 'Framework', 'JavaScript']
 review-by-me: false
 ---
 

@@ -3,7 +3,7 @@ title: How I Set Up a WordPress Site
 pubDate: '2025-04-13'
 draft: false
 description: Deploy a WordPress site quickly using AWS EC2 and Easy Engine (domain bought from Cloudflare). Requires a little programming background but is cheap and fast, with high freedom and scalability!
-tags: ['Software Development', 'WordPress', 'AWS', 'EC2', 'EasyEngine', 'Cloudflare']
+tags: ['WordPress', 'AWS', 'EC2', 'EasyEngine', 'Cloudflare']
 review-by-me: false
 ---
 

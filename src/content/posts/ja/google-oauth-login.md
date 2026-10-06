@@ -3,7 +3,7 @@ title: Googleサードパーティログインの実装（Vue / Express）
 pubDate: '2022-10-23'
 draft: false
 description: Vue と Express を使用して Google ログインを連携する小さな例
-tags: ['Software Development', 'Web Development', 'Vue', 'Express', 'Google OAuth']
+tags: ['Backend', 'Vue', 'Express', 'Google OAuth']
 review-by-me: false
 ---
 

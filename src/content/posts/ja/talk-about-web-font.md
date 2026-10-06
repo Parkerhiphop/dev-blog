@@ -3,7 +3,7 @@ title: Webフォントについて語る — デザイン、ファイル形式�
 pubDate: '2021-10-28'
 draft: false
 description: フォントデザインのプロセス（非専門家版）、フォントファイルの種類、Webページでのフォント使用方法について紹介します。
-tags: ['Software Development', 'Web Development', 'CSS', 'Font', 'Design']
+tags: ['Frontend', 'CSS', 'Font', 'Design']
 review-by-me: false
 ---
 

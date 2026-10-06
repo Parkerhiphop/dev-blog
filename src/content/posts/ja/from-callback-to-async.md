@@ -4,6 +4,7 @@ pubDate: '2023-08-21'
 draft: false
 description: 順序的なフェードインアニメーションの実装を通して、JSにおける非同期処理を学びます。CallbackからPromiseへの移行、そしてAsync/Awaitを使ったより簡潔で読みやすいコードへのリファクタリングを解説します。
 review-by-me: false
+tags: ['Frontend', 'JavaScript', 'Async/Await']
 ---
 
 ## まえがき

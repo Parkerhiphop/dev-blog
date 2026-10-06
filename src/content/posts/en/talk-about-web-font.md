@@ -3,7 +3,7 @@ title: Talk about Web Fonts — Design, File Formats and Frontend Loading
 pubDate: '2021-10-28'
 draft: false
 description: Introduce font design process (unprofessional version), what are font files, and how web pages use fonts.
-tags: ['Software Development', 'Web Development', 'CSS', 'Font', 'Design']
+tags: ['Frontend', 'CSS', 'Font', 'Design']
 review-by-me: false
 ---
 

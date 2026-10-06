@@ -3,7 +3,7 @@ title: Talk about eval in JavaScript, Risks and Alternatives
 pubDate: '2023-09-30'
 draft: false
 description: Introduce eval in JavaScript, talk about why not to use it, and finally look at its application and alternatives through the interview questions of reading `<script />` and getting JS calculation results when crawling with App Script.
-tags: ['Software Development', 'Web Development', 'JavaScript', 'Security', 'Eval']
+tags: ['JavaScript', 'Security', 'Eval']
 review-by-me: false
 ---
 

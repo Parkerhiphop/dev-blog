@@ -3,6 +3,7 @@ title: Design System — 前端工程師也該知道的那些事
 pubDate: '2021-09-22'
 draft: false
 description: 軟體工程師的本質其實跟建築師很接近，只是他們是建造房屋，我們是建造系統。一個好的房子，它需要良好的架構設計，會需要規劃藍圖、理解整個建物的結構，在前期規劃設計上會花很多的時間。而這概念對應到 網頁 來說，就是 Design System！
+tags: ['Frontend', 'Design System', 'CSS', 'UI/UX']
 ---
 
 在講 Design System 之前想要先提到一個觀念：「前期規劃 > 實作」。
