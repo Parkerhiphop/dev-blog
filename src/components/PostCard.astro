@@ -9,6 +9,7 @@ interface Props {
 const { post } = Astro.props;
 const lang = getLangFromId(post.id);
 const minutes = getReadingTimeMinutes(post.body ?? '', lang);
+const tagPrefix = lang === 'zh' ? '/tags' : `/${lang}/tags`;
 ---
 <article class="rounded border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
   <a href={postHref(post)} class="text-lg font-semibold text-accent hover:underline">
@@ -21,7 +22,10 @@ const minutes = getReadingTimeMinutes(post.body ?? '', lang);
     </time>
     <span>· {minutes} min</span>
     {post.data.tags.map((tag) => (
-      <span class="rounded border border-accent px-1.5 py-0.5 text-accent">#{tag}</span>
+      <a
+        href={`${tagPrefix}/${encodeURIComponent(tag)}/`}
+        class="rounded border border-accent px-1.5 py-0.5 text-accent hover:bg-accent hover:text-white"
+      >#{tag}</a>
     ))}
   </div>
 </article>
