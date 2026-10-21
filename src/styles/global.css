@@ -7,6 +7,10 @@
   --color-surface: #f1f5f9;
   --color-text: #0f172a;
   --color-border: #cbd5e1;
+  --color-inline-code: #0e7490;
+  --color-github-link: #0f172a;
+  --color-github-bg: #f1f5f9;
+  --color-github-border: #cbd5e1;
 }
 
 .dark {
@@ -14,12 +18,74 @@
   --color-surface: #111c22;
   --color-text: #e2f6f6;
   --color-border: #1f3a3f;
+  --color-inline-code: #22d3ee;
+  --color-github-link: #67e8f9;
+  --color-github-bg: #163039;
+  --color-github-border: #32616b;
+}
+
+html {
+  font-size: 112.5%;
 }
 
 html,
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
+}
+
+.prose :where(code):not(:where(pre *, .not-prose, .not-prose *)) {
+  color: var(--color-inline-code);
+  font-weight: 400;
+}
+
+.prose :where(code):not(:where(pre *, .not-prose, .not-prose *))::before,
+.prose :where(code):not(:where(pre *, .not-prose, .not-prose *))::after {
+  content: none;
+}
+
+/* Match GitHub's exact host; leave linked images and custom content alone. */
+.post-content :where(a:is(
+  [href="https://github.com" i],
+  [href^="https://github.com/" i],
+  [href="http://github.com" i],
+  [href^="http://github.com/" i]
+)):not(:where(.not-prose, .not-prose *)):not(:has(img, svg)) {
+  padding: 0.1em 0.35em;
+  border-radius: 0.25em;
+  background-color: var(--color-github-bg);
+  color: var(--color-github-link);
+  box-shadow: inset 0 0 0 1px var(--color-github-border);
+  text-decoration: none;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.post-content :where(a:is(
+  [href="https://github.com" i],
+  [href^="https://github.com/" i],
+  [href="http://github.com" i],
+  [href^="http://github.com/" i]
+)):not(:where(.not-prose, .not-prose *)):not(:has(img, svg))::before {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-inline-end: 0.3em;
+  vertical-align: -0.08em;
+  background-color: currentColor;
+  -webkit-mask: url('/icons/github.svg') center / contain no-repeat;
+  mask: url('/icons/github.svg') center / contain no-repeat;
+}
+
+.post-content :where(a:is(
+  [href="https://github.com" i],
+  [href^="https://github.com/" i],
+  [href="http://github.com" i],
+  [href^="http://github.com/" i]
+)):not(:where(.not-prose, .not-prose *)):not(:has(img, svg)):is(:hover, :focus-visible) {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 ::selection {
