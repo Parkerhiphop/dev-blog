@@ -24,7 +24,8 @@ const languageLinks = [
   { label: '日本語', href: pathForLang('ja'), active: lang === 'ja' },
 ];
 ---
-<header class="relative flex items-center justify-between gap-3 border-b border-[var(--color-border)] px-4 py-3">
+<!-- Keep the navigation dropdown above the sticky article TOC (z-index: 20). -->
+<header id="site-header" class="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-[var(--color-border)] bg-[var(--color-bg)] px-4 py-3">
   <a href={`${prefix}/`} class="flex min-w-0 shrink-0 items-center gap-2 text-accent" aria-label="Parker's Dev Blog">
     <img src="/icon.png" alt="" class="h-9 w-9 shrink-0 rounded-full object-cover sm:h-8 sm:w-8" />
     <span class="hidden truncate font-pixel text-sm sm:inline sm:text-base">Parker's Dev Blog</span>
@@ -74,6 +75,15 @@ const languageLinks = [
 </header>
 
 <script>
+  const header = document.getElementById('site-header');
+  if (header) {
+    const updateHeaderHeight = () => {
+      document.documentElement.style.setProperty('--site-header-height', `${header.getBoundingClientRect().height}px`);
+    };
+    updateHeaderHeight();
+    new ResizeObserver(updateHeaderHeight).observe(header);
+  }
+
   const menuToggle = document.getElementById('menu-toggle');
   const siteMenu = document.getElementById('site-menu');
   menuToggle?.addEventListener('click', () => {

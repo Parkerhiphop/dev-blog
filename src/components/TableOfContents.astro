@@ -12,16 +12,141 @@ const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 {items.length > 0 && (
   <nav
-    class="min-w-0 break-words rounded border border-[var(--color-border)] bg-[var(--color-surface)] p-3 text-sm lg:sticky lg:top-4 lg:max-h-[calc(100dvh-2rem)] lg:overflow-y-auto"
+    class="toc"
     aria-label="Table of contents"
   >
-    <p class="mb-2 font-semibold text-accent">TOC</p>
-    <ul class="flex flex-col gap-1">
-      {items.map((h) => (
-        <li class={h.depth === 3 ? 'ml-3' : ''}>
-          <a href={`#${h.slug}`} class="hover:text-accent hover:underline">{h.text}</a>
-        </li>
-      ))}
-    </ul>
+    <details>
+      <summary class="toc-toggle">
+        <span>TOC</span>
+        <svg class="toc-chevron" aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </summary>
+      <ul class="toc-links">
+        {items.map((h) => (
+          <li class={h.depth === 3 ? 'ml-3' : ''}>
+            <a href={`#${h.slug}`}>{h.text}</a>
+          </li>
+        ))}
+      </ul>
+    </details>
   </nav>
 )}
+
+<script>
+  document.querySelectorAll<HTMLElement>('.toc').forEach((nav) => {
+    const disclosure = nav.querySelector('details')!;
+    const toggle = nav.querySelector('summary')!;
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const syncLayout = () => { disclosure.open = desktop.matches; };
+    syncLayout();
+    desktop.addEventListener('change', syncLayout);
+
+    nav.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        if (!desktop.matches) disclosure.open = false;
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!desktop.matches && event.target instanceof Node && !nav.contains(event.target)) {
+        disclosure.open = false;
+      }
+    });
+    nav.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && disclosure.open) {
+        disclosure.open = false;
+        toggle.focus();
+      }
+    });
+  });
+</script>
+
+<style>
+  .toc {
+    position: sticky;
+    top: calc(var(--site-header-height, 4rem) + 1rem);
+    z-index: 20;
+    min-width: 0;
+    align-self: stretch;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    background: var(--color-surface);
+    font-size: 0.875rem;
+    overflow-wrap: anywhere;
+  }
+
+  /* Soften article content passing through the gap below the sticky header. */
+  .toc::before {
+    content: '';
+    position: absolute;
+    inset-inline: -1px;
+    bottom: calc(100% + 1px);
+    height: 1rem;
+    background: color-mix(in srgb, var(--color-bg) 65%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .toc-toggle {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.65rem 0.75rem;
+    color: theme('colors.accent.DEFAULT');
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .toc-toggle::-webkit-details-marker { display: none; }
+  .toc-chevron { flex-shrink: 0; transition: transform 160ms ease-out; }
+  details[open] .toc-chevron { transform: rotate(180deg); }
+
+  .toc-links {
+    position: absolute;
+    inset-inline: -1px;
+    top: 100%;
+    max-height: calc(100dvh - var(--site-header-height, 4rem) - 7rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0.5rem 0.75rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0 0 0.25rem 0.25rem;
+    background: var(--color-surface);
+  }
+
+  .toc-links a {
+    display: block;
+    padding: 0.5rem 0;
+    line-height: 1.5;
+  }
+
+  .toc-links a:hover { color: theme('colors.accent.DEFAULT'); text-decoration: underline; }
+  .toc-toggle:focus-visible, .toc-links a:focus-visible {
+    outline: 2px solid theme('colors.accent.DEFAULT');
+    outline-offset: 2px;
+  }
+
+  :global(.post-content :is(h2, h3)[id]) {
+    scroll-margin-top: calc(var(--site-header-height, 4rem) + 6rem);
+  }
+
+  @media (min-width: 1024px) {
+    .toc { align-self: start; }
+    .toc-links {
+      position: static;
+      max-height: calc(100dvh - var(--site-header-height, 4rem) - 6rem);
+      border: 0;
+      border-top: 1px solid var(--color-border);
+    }
+    .toc-links a { padding-block: 0.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toc-chevron { transition: none; }
+  }
+</style>

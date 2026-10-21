@@ -27,7 +27,7 @@ const aiTranslationNotice = {
 };
 ---
 <BaseLayout title={post.data.title} description={post.data.description} lang={lang} wide={hasTableOfContents} ogImage={ogImage}>
-  <div class:list={['grid items-start gap-6', hasTableOfContents && 'lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-10']}>
+  <div class:list={['flex flex-col items-stretch gap-6 lg:grid lg:items-start', hasTableOfContents && 'lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-10']}>
     <TableOfContents headings={headings} />
     <article class="post-content prose prose-slate min-w-0 max-w-none dark:prose-invert lg:order-first">
       <h1 class="text-3xl font-bold leading-snug tracking-tight text-accent">{post.data.title}</h1>
